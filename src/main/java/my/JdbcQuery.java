@@ -6,7 +6,7 @@ public class JdbcQuery {
 
     public static void queryById(Long bookId) throws SQLException {
         System.out.println("------- query by id ------");
-        Connection conn = DriverManager.getConnection(DB.URL);
+        Connection conn = DB.getConnection();
         PreparedStatement stmt = conn.prepareStatement("select * from books where id=?");
         stmt.setLong(1, bookId);
         ResultSet rs = stmt.executeQuery();

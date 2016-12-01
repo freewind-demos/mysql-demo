@@ -8,7 +8,7 @@ public class JdbcInsert {
 
     public static void insert() throws SQLException {
         System.out.println("------- inserting ------");
-        Connection conn = DriverManager.getConnection(DB.URL);
+        Connection conn = DB.getConnection();
         Map<String, String> books = new HashMap<String, String>();
         books.put("Java", "一本好书");
         books.put("JavaScript", "另一本好书");

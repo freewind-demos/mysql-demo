@@ -6,7 +6,7 @@ public class JdbcDelete {
 
     public static void deleteById(Long bookId) throws SQLException {
         System.out.println("------- delete by id ------");
-        Connection conn = DriverManager.getConnection(DB.URL);
+        Connection conn = DB.getConnection();
         PreparedStatement stmt = conn.prepareStatement("delete from books where id=?");
         stmt.setLong(1, bookId);
         int deletedCount = stmt.executeUpdate();

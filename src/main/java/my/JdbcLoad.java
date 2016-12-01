@@ -6,7 +6,7 @@ public class JdbcLoad {
 
     public static void loadAll() throws SQLException {
         System.out.println("------- load all ------");
-        Connection conn = DriverManager.getConnection(DB.URL);
+        Connection conn = DB.getConnection();
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("select * from books");
         while (rs.next()) {
@@ -15,6 +15,8 @@ public class JdbcLoad {
             String description = rs.getString("description");
             System.out.println("Book #" + id + ", title=" + title + ", description=" + description);
         }
+        rs.close();
+        stmt.close();
         conn.close();
     }
 

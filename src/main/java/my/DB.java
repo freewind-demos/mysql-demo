@@ -6,24 +6,28 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DB {
-    public static final String URL = "jdbc:h2:mem:demo;MODE=MYSQL;LOCK_MODE=0;DB_CLOSE_DELAY=-1";
 
-    //    public static final String PASSWORD = "demo";
-    //    public static final String USERNAME = "demo";
-    //    public static final String URL = "jdbc:mysql://localhost:3306/jdbc-demo";
-
+    public static final String PASSWORD = "demo";
+    public static final String USERNAME = "demo";
+    public static final String URL = "jdbc:mysql://localhost:3306/mysql-demo?autoReconnect=true&useSSL=false";
 
     public static void createTable() throws SQLException {
         System.out.println("------- creating table ------");
-        Connection conn = DriverManager.getConnection(DB.URL);
+        Connection conn = getConnection();
         Statement stmt = conn.createStatement();
-        stmt.execute("create table books(" +
-                "  id int auto_increment primary key, " +
-                "  title varchar(40), " +
-                "  description varchar(200)" +
-                ")");
+        stmt.execute("DROP TABLE IF EXISTS `books`");
+        stmt.execute("CREATE TABLE `books` (\n" +
+                "  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,\n" +
+                "  `title` varchar(40) DEFAULT NULL,\n" +
+                "  `description` text,\n" +
+                "  PRIMARY KEY (`id`)\n" +
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8;");
         stmt.close();
         conn.close();
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(DB.URL, USERNAME, PASSWORD);
     }
 
 }
